@@ -121,14 +121,14 @@ class IsoTilemap
 						// need an iso-world -> screen translator... I USED TO KNOW THIS AAAGHHHH >:CCCC
 						thisTile = new FlxSpriteZ(0, 0);
 						
-						thisTile.loadGraphic("assets/tilesWIP.png", false, false, 32, 16); //32x16? frame 1 at least
+						thisTile.loadGraphic("assets/tilesWIP.png", false, false, 32, 17); //32x16? frame 1 at least
 						
 						// should set up some constants...
 						thisTile.frame = 0;
 						
 						
 						IsoToScreen(thisTile, i, j, k);
-						thisTile.z = (i/j) * k;
+						thisTile.z = (j/i) * k;
 						//add to flxgroup
 						flxSpace.add(thisTile);
 						
@@ -142,7 +142,7 @@ class IsoTilemap
 						
 						thisWall.x = thisTile.x;
 						thisWall.y = thisTile.y + 9;
-						thisWall.z = (i/j) * k;
+						thisWall.z = (j/i) * k;
 						
 						flxSpace.add(thisWall);
 	
@@ -161,7 +161,7 @@ class IsoTilemap
 		
 		//flxSpace.sort("y", 0);
 		flxSpace.sort("z", 2);
-		flxSpace.members.reverse();
+		
 		//why does this mess up?
 		
 		
@@ -189,11 +189,18 @@ class IsoTilemap
 	// now i actually need some map data...
 	public function DummyData():Void
 	{
-		mapArray[3][4][4] = 1;
-		mapArray[3][4][5] = 1;
 		mapArray[3][3][5] = 1;
+		mapArray[3][4][5] = 1;
+		mapArray[4][4][5] = 1;
 		mapArray[4][3][5] = 1;
-		mapArray[4][4][5] = 1; 
+		
+		//block
+		mapArray[3][4][4] = 1;
+		
+		//spire
+		//mapArray[4][3][4] = 1;
+		//mapArray[4][3][3] = 1;
+		//mapArray[4][3][2] = 1;
 		
 		// Need to order all elements based on distance to "camera"...
 		
