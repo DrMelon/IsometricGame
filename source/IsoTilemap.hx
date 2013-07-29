@@ -125,10 +125,10 @@ class IsoTilemap
 						
 						// should set up some constants...
 						thisTile.frame = 0;
-						thisTile.z = k;
+						
 						
 						IsoToScreen(thisTile, i, j, k);
-						
+						thisTile.z = (i/j) * k;
 						//add to flxgroup
 						flxSpace.add(thisTile);
 						
@@ -137,12 +137,12 @@ class IsoTilemap
 						var thisWall:FlxSpriteZ;
 						thisWall = new FlxSpriteZ(0, 0);
 						
-						thisWall.loadGraphic("assets/tilesWIP.png", false, false, 32, 18);
+						thisWall.loadGraphic("assets/tilesWIP.png", false, false, 32, 16);
 						thisWall.frame = 1;
 						
 						thisWall.x = thisTile.x;
-						thisWall.y = thisTile.y + 7;
-						thisWall.z = k;
+						thisWall.y = thisTile.y + 9;
+						thisWall.z = (i/j) * k;
 						
 						flxSpace.add(thisWall);
 	
@@ -158,9 +158,11 @@ class IsoTilemap
 			
 		}
 		
-		flxSpace.sort();
-		flxSpace.sort("z", 1);
 		
+		//flxSpace.sort("y", 0);
+		flxSpace.sort("z", 2);
+		flxSpace.members.reverse();
+		//why does this mess up?
 		
 		
 	}
@@ -187,7 +189,7 @@ class IsoTilemap
 	// now i actually need some map data...
 	public function DummyData():Void
 	{
-		mapArray[3][3][4] = 1;
+		mapArray[3][4][4] = 1;
 		mapArray[3][4][5] = 1;
 		mapArray[3][3][5] = 1;
 		mapArray[4][3][5] = 1;
