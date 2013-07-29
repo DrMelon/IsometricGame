@@ -117,14 +117,15 @@ class IsoTilemap
 					{
 						//make a floor tile appear on screen appropriately here
 						
-						var thisTile:FlxSprite;
+						var thisTile:FlxSpriteZ;
 						// need an iso-world -> screen translator... I USED TO KNOW THIS AAAGHHHH >:CCCC
-						thisTile = new FlxSprite(0, 0);
+						thisTile = new FlxSpriteZ(0, 0);
 						
 						thisTile.loadGraphic("assets/tilesWIP.png", false, false, 32, 16); //32x16? frame 1 at least
 						
 						// should set up some constants...
 						thisTile.frame = 0;
+						thisTile.z = k;
 						
 						IsoToScreen(thisTile, i, j, k);
 						
@@ -133,16 +134,19 @@ class IsoTilemap
 						
 						//need to add walls next... going bottom upwards as it were, because of the "blips"
 						
-						var thisWall:FlxSprite;
-						thisWall = new FlxSprite(0, 0);
+						var thisWall:FlxSpriteZ;
+						thisWall = new FlxSpriteZ(0, 0);
 						
-						thisWall.loadGraphic("assets/tilesWIP.png", false, false, 32, 16);
+						thisWall.loadGraphic("assets/tilesWIP.png", false, false, 32, 18);
 						thisWall.frame = 1;
 						
 						thisWall.x = thisTile.x;
-						thisWall.y = thisTile.y + 9;
+						thisWall.y = thisTile.y + 7;
+						thisWall.z = k;
 						
 						flxSpace.add(thisWall);
+	
+						
 						
 					}
 					
@@ -154,11 +158,11 @@ class IsoTilemap
 			
 		}
 		
-	
-		//reverse flxgroup elements
-		flxSpace.members.reverse();
+		flxSpace.sort();
+		flxSpace.sort("z", 1);
 		
-		flxSpace.sort("y", ASCENDING);
+		
+		
 	}
 	
 	private function IsoToScreen(target:FlxSprite, isoX:Int, isoY:Int, isoZ:Int):Void
@@ -183,6 +187,7 @@ class IsoTilemap
 	// now i actually need some map data...
 	public function DummyData():Void
 	{
+		mapArray[3][3][4] = 1;
 		mapArray[3][4][5] = 1;
 		mapArray[3][3][5] = 1;
 		mapArray[4][3][5] = 1;
